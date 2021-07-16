@@ -32,6 +32,10 @@ export const postResolvers = {
       const user = auth(context);
       console.log(user);
 
+      if (args.body.trim() === '') {
+        throw new Error('Post body must not be empty')
+      }
+
       const newPost = new Post({
         body,
         user: user.id,
