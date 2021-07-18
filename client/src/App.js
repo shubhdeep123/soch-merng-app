@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import HomeScreen from "./screens/HomeSceen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import MenuBar from "./components/MenuBar";
 import "semantic-ui-css/semantic.min.css";
 import { Container } from "semantic-ui-react";
@@ -12,9 +12,9 @@ function App() {
     <Container>
       <Router>
         <MenuBar />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <Route exact path="/" component={HomeScreen} />
+        <Route exact path="/login" component={LoginScreen} />
+        <Route exact path="/register" component={RegisterScreen} />
       </Router>
     </Container>
   );
