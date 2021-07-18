@@ -1,35 +1,30 @@
 import React, { useState } from "react";
+import { useForm } from "../utils/hooks";
 import { Button, Form } from "semantic-ui-react";
 import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 
 const RegisterScreen = (props) => {
   const [errors, setErrors] = useState({});
-  const [values, setValues] = useState({
+
+  const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_, result) {
-      console.log(result);
       props.history.push("/");
     },
     onError(err) {
-      console.log(err);
       setErrors(err.graphQLErrors[0].extensions.errors);
     },
     variables: values,
   });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  function registerUser(){
     addUser();
   };
 
