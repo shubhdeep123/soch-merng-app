@@ -30,9 +30,8 @@ export const postResolvers = {
   Mutation: {
     async createPost(_, { body }, context) {
       const user = auth(context);
-      console.log(user);
 
-      if (args.body.trim() === '') {
+      if (body.trim() === '') {
         throw new Error('Post body must not be empty')
       }
 

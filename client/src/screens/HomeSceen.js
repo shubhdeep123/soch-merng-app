@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import PostCard from "../components/PostCard";
-import { Grid,Loader } from "semantic-ui-react";
+import PostForm from "../components/PostForm";
+import { Grid, Loader } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+import {FETCH_POSTS_QUERY} from "../utils/graphql"
+import { AuthContext } from "../context/auth";
 
 const HomeScreen = () => {
+  // getting user from context
+  const { user } = useContext(AuthContext);
   //   Fetching posts from backend
   const { loading, data } = useQuery(FETCH_POSTS_QUERY);
 
   if (loading) {
-    return <Loader active inline="centered"/>;
+    return <Loader active inline="centered" />;
   }
 
   const { getPosts: posts } = data;
@@ -24,6 +28,11 @@ const HomeScreen = () => {
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
+        {user && (
+          <Grid.Column>
+            <PostForm/>
+          </Grid.Column>
+        )}
         {posts &&
           posts.map((post) => {
             return (
@@ -37,26 +46,6 @@ const HomeScreen = () => {
   );
 };
 
-const FETCH_POSTS_QUERY = gql`
-  {
-    getPosts {
-      id
-      body
-      createdAt
-      username
-      likeCount
-      likes {
-        username
-      }
-      commentCount
-      comments {
-        id
-        username
-        createdAt
-        body
-      }
-    }
-  }
-`;
+
 
 export default HomeScreen;
