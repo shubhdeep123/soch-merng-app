@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import PostCard from "../components/PostCard";
 import PostForm from "../components/PostForm";
-import { Grid, Loader } from "semantic-ui-react";
+import { Grid, Loader, Transition } from "semantic-ui-react";
 import { useQuery } from "@apollo/client";
-import {FETCH_POSTS_QUERY} from "../utils/graphql"
+import { FETCH_POSTS_QUERY } from "../utils/graphql";
 import { AuthContext } from "../context/auth";
 
 const HomeScreen = () => {
@@ -23,29 +23,29 @@ const HomeScreen = () => {
   }
 
   return (
-    <Grid columns={3}>
+    <Grid columns={3} stackable doubling>
       <Grid.Row className="page-title">
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
         {user && (
           <Grid.Column>
-            <PostForm/>
+            <PostForm />
           </Grid.Column>
         )}
-        {posts &&
-          posts.map((post) => {
-            return (
-              <Grid.Column key={post.id} style={{ marginBottom: "20px" }}>
-                <PostCard post={post} />
-              </Grid.Column>
-            );
-          })}
+        <Transition.Group>
+          {posts &&
+            posts.map((post) => {
+              return (
+                <Grid.Column key={post.id} style={{ marginBottom: "20px" }}>
+                  <PostCard post={post} />
+                </Grid.Column>
+              );
+            })}
+        </Transition.Group>
       </Grid.Row>
     </Grid>
   );
 };
-
-
 
 export default HomeScreen;
