@@ -9,3 +9,9 @@
     width: 400px;
     margin: auto;
 }
+
+@media only screen and (max-width: 600px) {
+    .form-container {
+        max-width: 300px;
+    }
+  }

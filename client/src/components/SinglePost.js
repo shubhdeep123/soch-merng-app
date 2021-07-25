@@ -32,7 +32,7 @@ const SinglePost = ({ match, history }) => {
   const [createComment] = useMutation(CREATE_COMMENT_MUTATION, {
     update() {
       setComment("");
-      commentInputRef.current.blur()
+      commentInputRef.current.blur();
     },
     variables: {
       postId,
@@ -60,18 +60,16 @@ const SinglePost = ({ match, history }) => {
   } = data.getPost;
 
   return (
-    <Grid>
+    <Grid stackable>
       <Grid.Row>
-        <Grid.Column>
-          <Image
-            floated="right"
-            size="small"
-            src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-          />
-        </Grid.Column>
         <Grid.Column width={10}>
           <Card fluid>
             <Card.Content>
+              <Image
+                floated="right"
+                size="mini"
+                src="https://react.semantic-ui.com/images/avatar/large/elliot.jpg"
+              />
               <Card.Header>{username}</Card.Header>
               <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
               <Card.Description>{body}</Card.Description>
@@ -112,7 +110,7 @@ const SinglePost = ({ match, history }) => {
                     />
                     <button
                       type="submit"
-                      className="ui button teal"
+                      className="ui button blue"
                       disabled={comment.trim() === ""}
                       onClick={createComment}
                     >
